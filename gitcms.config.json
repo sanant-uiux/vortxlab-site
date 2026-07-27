@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "name": "VortxLab Creations",
+  "framework": "vite",
+  "content": {
+    "dir": "content",
+    "extensions": [".json"],
+    "exclude": []
+  },
+  "media": {
+    "dir": "public/images",
+    "publicPath": "/images",
+    "maxFileSizeMb": 10
+  },
+  "theme": {},
+  "seo": {},
+  "navigation": {},
+  "deployment": {
+    "provider": "vercel"
+  },
+  "git": {
+    "branch": "main",
+    "commitMessage": "content: {summary}",
+    "authorName": "GitCMS",
+    "authorEmail": "bot@gitcms.dev"
+  }
+}
