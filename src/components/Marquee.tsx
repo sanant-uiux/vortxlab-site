@@ -1,14 +1,9 @@
-const KEYWORDS = [
-  "Immersive",
-  "Neural",
-  "Virtual",
-  "Generative",
-  "Spatial",
-  "Cinematic",
-];
+import { useContent } from "../content";
 
 export default function Marquee() {
-  const row = [...KEYWORDS, ...KEYWORDS];
+  const { marquee } = useContent();
+  const row = [...marquee.keywords, ...marquee.keywords];
+
   return (
     <div
       aria-hidden="true"
