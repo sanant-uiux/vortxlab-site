@@ -4,7 +4,9 @@
   "framework": "vite",
   "content": {
     "dir": "content",
-    "extensions": [".json"],
+    "extensions": [
+      ".json"
+    ],
     "exclude": []
   },
   "media": {
@@ -15,6 +17,9 @@
   "theme": {},
   "seo": {},
   "navigation": {},
+  "preview": {
+    "enabled": true
+  },
   "deployment": {
     "provider": "vercel"
   },
