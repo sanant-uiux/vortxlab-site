@@ -1,16 +1,20 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --font-inter: "Inter", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
 
 body {
-  font-family: 'Inter', sans-serif;
+  margin: 0;
+  font-family: "Inter", sans-serif;
   background-color: #000000;
 }
 
-/* --------------------------------------------------------------------------
-   Octagonal cut buttons
-   -------------------------------------------------------------------------- */
-
+/* Octagonal clip-path buttons */
 .btn-cut {
   clip-path: polygon(
     12px 0%,
@@ -24,8 +28,6 @@ body {
   );
 }
 
-/* Outline variant: a white cut shape with a black inset laid over it, so the
-   1px gap between the two reads as a border that follows the octagon. */
 .btn-cut-border {
   position: relative;
   background: white;
@@ -42,11 +44,10 @@ body {
 }
 
 .btn-cut-border::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 1px;
   background: black;
-  z-index: 0;
   clip-path: polygon(
     11px 0%,
     calc(100% - 11px) 0%,
@@ -57,6 +58,7 @@ body {
     0% calc(100% - 11px),
     0% 11px
   );
+  z-index: 0;
 }
 
 .btn-cut-border > * {
@@ -77,10 +79,7 @@ body {
   );
 }
 
-/* --------------------------------------------------------------------------
-   Entrance animations
-   -------------------------------------------------------------------------- */
-
+/* Entrance animations */
 @keyframes fadeUp {
   from {
     opacity: 0;
@@ -111,10 +110,46 @@ body {
   animation: fadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+/* Octagonal cut for large cards/panels (16px cut) */
+.card-cut {
+  clip-path: polygon(
+    16px 0%,
+    calc(100% - 16px) 0%,
+    100% 16px,
+    100% calc(100% - 16px),
+    calc(100% - 16px) 100%,
+    16px 100%,
+    0% calc(100% - 16px),
+    0% 16px
+  );
+}
+
+/* Keyword marquee */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  animation: marquee 32s linear infinite;
+}
+
+/* Elements stay visible when the OS asks for reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .anim-stagger,
   .anim-fade {
-    opacity: 1;
     animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .marquee-track {
+    animation: none;
+  }
+  html {
+    scroll-behavior: auto;
   }
 }
