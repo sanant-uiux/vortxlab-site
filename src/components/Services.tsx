@@ -8,6 +8,7 @@ export default function Services() {
   return (
     <section
       id="services"
+      data-gitcms-section="services"
       aria-labelledby="services-heading"
       className="w-full rounded-2xl border border-white/10 bg-black px-6 py-16 md:px-10 md:py-24"
     >

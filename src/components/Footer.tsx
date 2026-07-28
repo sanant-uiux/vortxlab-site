@@ -5,7 +5,10 @@ export default function Footer() {
   const { brand, footer } = useContent();
 
   return (
-    <footer className="w-full rounded-2xl border border-white/10 bg-black px-6 py-12 md:px-10 md:py-16">
+    <footer
+      data-gitcms-section="footer"
+      className="w-full rounded-2xl border border-white/10 bg-black px-6 py-12 md:px-10 md:py-16"
+    >
       <div className="grid grid-cols-1 gap-10 md:grid-cols-[1.5fr_1fr_1fr_1fr]">
         <div>
           <a href="#home" aria-label="Back to top" className="inline-flex flex-col items-center">

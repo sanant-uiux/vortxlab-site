@@ -8,6 +8,7 @@ export default function Hero() {
   return (
     <section
       id="home"
+      data-gitcms-section="hero"
       aria-label="Intro"
       className="relative flex h-[calc(100dvh-1.5rem)] w-full flex-col overflow-hidden rounded-2xl bg-black md:h-[calc(100dvh-2rem)]"
     >

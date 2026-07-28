@@ -7,6 +7,7 @@ export default function Marquee() {
   return (
     <div
       aria-hidden="true"
+      data-gitcms-section="marquee"
       className="w-full overflow-hidden rounded-2xl border border-white/10 bg-black py-6"
     >
       <div className="marquee-track flex w-max items-center">

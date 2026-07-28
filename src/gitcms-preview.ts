@@ -46,31 +46,54 @@ export function useGitCmsPreview<T>(initial: T): { content: T; previewing: boole
   useEffect(() => {
     if (!isFramed()) return;
 
+    const announce = () => {
+      window.parent.postMessage(
+        {
+          type: 'gitcms:ready',
+          version: PROTOCOL_VERSION,
+          commit: typeof __SITE_COMMIT__ === 'string' ? __SITE_COMMIT__ : undefined,
+        },
+        '*',
+      );
+    };
+
     const onMessage = (event: MessageEvent) => {
       if (!ALLOWED_ORIGINS.includes(event.origin)) return;
 
-      const message = event.data as { type?: string; version?: number; data?: unknown };
+      const message = event.data as {
+        type?: string;
+        version?: number;
+        data?: unknown;
+        section?: string;
+      };
       if (message?.version !== PROTOCOL_VERSION) return;
+
+      // The editor missed our announcement — it hydrated after we mounted.
+      // Answering the ping is what makes the handshake order-independent.
+      if (message.type === 'gitcms:ping') {
+        announce();
+        return;
+      }
 
       if (message.type === 'gitcms:content' && message.data && typeof message.data === 'object') {
         setContent(message.data as T);
         setPreviewing(true);
+        return;
+      }
+
+      // The editor asks us to reveal the region it is editing. Sections opt in
+      // with data-gitcms-section; anything unmapped is simply ignored.
+      if (message.type === 'gitcms:scroll' && typeof message.section === 'string') {
+        const target = document.querySelector(`[data-gitcms-section="${CSS.escape(message.section)}"]`);
+        target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     };
 
     window.addEventListener('message', onMessage);
 
     // Announce readiness so the editor can send the current draft immediately
-    // rather than waiting for the next keystroke. The commit lets the editor
-    // warn when this build is behind the branch it publishes to.
-    window.parent.postMessage(
-      {
-        type: 'gitcms:ready',
-        version: PROTOCOL_VERSION,
-        commit: typeof __SITE_COMMIT__ === 'string' ? __SITE_COMMIT__ : undefined,
-      },
-      '*',
-    );
+    // rather than waiting for the next keystroke.
+    announce();
 
     return () => window.removeEventListener('message', onMessage);
   }, []);

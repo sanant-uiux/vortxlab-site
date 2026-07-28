@@ -9,6 +9,7 @@ export default function CTASection() {
   return (
     <section
       id="contact"
+      data-gitcms-section="cta"
       aria-labelledby="cta-heading"
       className="relative w-full overflow-hidden rounded-2xl bg-black"
     >
